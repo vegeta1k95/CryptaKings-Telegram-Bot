@@ -1,0 +1,2 @@
+python3 cryptakings_bot.py
+pause
