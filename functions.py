@@ -1,3 +1,5 @@
+import emoji as emj
+
 def user_reg(user_id):    
     return True
 
@@ -46,8 +48,8 @@ def login_ask(bot, message, controller='send'):
 You have no CryptaKings account connected at the moment.
 Would you like to connect to it?"""
     bot.buffer[_id] = {}
-    input_keyboard = [{'text': 'Yes', 'query': 'c=login'},
-                      {'text': 'No', 'query': 'c=main_menu,log=False'}]
+    input_keyboard = [{'text': emj.yes + ' Yes', 'query': 'c=login'},
+                      {'text': emj.no + ' No', 'query': 'c=main_menu,log=False'}]
 
     keyboard = bot.get_keyboard(input_array=input_keyboard, grid=2)
     bot.send_message(text=text, message=message,
@@ -63,7 +65,7 @@ def request_login(bot, message):
     _id = bot.get_id(message)
     bot.buffer[_id] = {'wait': 'login'}
     text = "Please enter login to your CryptaKings accout:"
-    bot.send_message(text=text, message=message, con='edit')
+    bot.send_message(text=text, message=message, con='send')
 
 def request_password(bot, message):
     _id = bot.get_id(message)
@@ -79,18 +81,18 @@ def main_menu(bot, message, controller="send", logged_in=True):
     input_keyboard = []
 
     if logged_in:
-        input_keyboard.append({"text": "My profile", "query": "c=profile"})
-        input_keyboard.append({"text": "My trades", "query": "c=trades"})
+        input_keyboard.append({"text": emj.head + " My profile", "query": "c=profile"})
+        input_keyboard.append({"text": emj.card + " My trades", "query": "c=trades"})
         
     # TODO Admin Rights/Functionality
     else:
-        input_keyboard.append({"text": "Login", "query": "c=login"})
+        input_keyboard.append({"text": emj.wrench + " Login", "query": "c=login"})
 
-    input_keyboard.append({"text": "Latest news", "query": "c=news"})
-    input_keyboard.append({"text": "Rankings", "query": "c=rankings"})
+    input_keyboard.append({"text": emj.news + " Latest news", "query": "c=news"})
+    input_keyboard.append({"text": emj.plot + " Rankings", "query": "c=rankings"})
 
     if logged_in:
-        input_keyboard.append({"text": "Logout", "query": "c=logout"})
+        input_keyboard.append({"text": emj.door + " Logout", "query": "c=logout"})
 
     keyboard = bot.get_keyboard(input_array=input_keyboard, grid=1)
     bot.send_message(text=text, message=message, con=controller,
