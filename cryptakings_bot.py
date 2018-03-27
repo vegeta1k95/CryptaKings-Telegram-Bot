@@ -2,6 +2,7 @@ import fasttelegramapi as ft
 import config
 
 from functions import *
+from notification import CustomSocket
 
 if __name__ == '__main__':
     
@@ -22,5 +23,7 @@ if __name__ == '__main__':
     @bot.message_handler(content_types=["text", "audio", "document", "photo", "sticker", "video", "video_note", "voice"])
     def post_ans(message):
         get_message(bot=bot, message=message)
+
+    CustomSocket(send_notification, bot=bot).start()
     
     bot.polling(none_stop=True)
